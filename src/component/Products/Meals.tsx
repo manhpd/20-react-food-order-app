@@ -13,11 +13,12 @@ export default function Meals() {
                 setMeals(data);
             });
     }, []);
+    
     return (
         <main>
             <ul  id="meals">
-                {meals.map(meal => (
-                    <Meal meal={meal}></Meal>
+                {meals.map((meal,index) => (
+                    <Meal meal={meal} key={index}></Meal>
                 ))}
             </ul>
         </main>
