@@ -3,6 +3,7 @@ import Modal from "../UI/Modal";
 import { CartContext } from "../../store/CartContext";
 import { formatCurrency } from "../../utils/currency";
 import { UserProgressContext } from "../../store/UserProgressContext";
+import CartItem from "./CartItem";
 
 
 export default function Cart() {
@@ -17,18 +18,26 @@ export default function Cart() {
         userProgress.hideCart();
     }
 
+
     return (
-        <Modal className="cart"  open={userProgress.progress === 'cart'}>
+        <Modal className="cart"  open={userProgress.progress === 'cart'} onClose={handelClose}>
             <h2>Your Cart</h2>
             <ul>
                 {cartCtx.items.map((item: any) => {
-                    return <li key={item.id}>{item.name} ({item.quantity})</li>
+                    return  <CartItem 
+                                key={item.id} 
+                                {...item} 
+                                onIncrease={() => cartCtx.addItem(item)}
+                                onDecrease={() => cartCtx.removeItem(item.id)} 
+                            />;
                 })}
             </ul>
-            <p className="total">Total: {formatCurrency(cartTotals, 'en-us','usd')}</p>
-            <div className="actions">
-                <button className="button--alt" onClick={handelClose}>Close</button>
-                <button className="button">Go to Checkout</button>
+            <p className="cart-total">Total: {formatCurrency(cartTotals, 'en-us','usd')}</p>
+            <div className="modal-actions">
+                <button className="button" onClick={handelClose}>Close</button>
+                {cartCtx.items.length > 0 && (
+                    <button className="button" onClick={() => userProgress.showCheckout()}>Go to Checkout</button>
+                )}
             </div>
         </Modal>
     );

@@ -82,6 +82,15 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+.cart {
+  width: 70%;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  margin: 2rem auto;
+  max-width: 40rem;
+}
+
 .cart h2 {
   margin: 1rem 0;
 }
